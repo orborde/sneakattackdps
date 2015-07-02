@@ -23,7 +23,7 @@ LH - "Loaded + Hidden" - Crossbow loaded, and successfully hidden.
 
 import random
 
-VERBOSE = True
+VERBOSE = False
 
 def dN(n):
     return random.randint(1, n)
@@ -170,7 +170,7 @@ def eval_strat(strat, iters=ITER_COUNT):
     return float(dmg) / iters
 
 atk_dmg = eval_strat(ATK_STRAT)
-print 'Standard dmg/action:', atk_dmg
+print 'Standard dmg/action:', atk_dmg, '(exp 1.925/action)'
 sneak_dmg = eval_strat(SNEAK_STRAT)
-print 'Sneak attack dmg/action:', sneak_dmg
+print 'Sneak attack dmg/action:', sneak_dmg, '(exp 2.1875/action)'
 
