@@ -23,6 +23,8 @@ LH - "Loaded + Hidden" - Crossbow loaded, and successfully hidden.
 
 import random
 
+VERBOSE = True
+
 def dN(n):
     return random.randint(1, n)
 d4 = lambda: dN(4)
@@ -82,18 +84,29 @@ CRIT = "CRIT"
 def attack_roll():
     roll = d20()
     if roll >= CRIT_MIN:
+        if VERBOSE: print 'CRITICAL on', roll
         return CRIT
-    if roll + ATK_BONUS >= ENEMY_AC:
+
+    mod_roll = roll + ATK_BONUS
+    if mod_roll >= ENEMY_AC:
+        if VERBOSE:
+            print 'HIT on', roll, '+', ATK_BONUS, '=', mod_roll
         return HIT
+
+    if VERBOSE: print 'MISS on', roll, '+', ATK_BONUS, '=', mod_roll
     return MISS
 
 
 def attack_roll_dmg(damage_func):
     outcome = attack_roll()
     if outcome is HIT:
-        return damage_func()
+        dmg = damage_func()
+        if VERBOSE: print dmg, 'damage'
+        return dmg
     if outcome is CRIT:
-        return CRIT_MUL * damage_func()
+        dmg = CRIT_MUL * damage_func()
+        if VERBOSE: print dmg, 'damage'
+        return dmg
     assert outcome is MISS
     return 0
 
@@ -101,6 +114,7 @@ def attack_roll_dmg(damage_func):
 def run_round(state, strat):
     """Returns (newstate, damage_done) tuple."""
     action = strat[state]
+    if VERBOSE: print "On", state, "/ choosing", action
 
     if state is MT:
         if action is LOAD:
