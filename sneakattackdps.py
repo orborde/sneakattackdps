@@ -153,6 +153,7 @@ def run_round(state, strat):
 
     if state is LH:
         if action is ATK:
+            if VERBOSE: print 'SNEAK ATTACK!'
             return MT, attack_roll_dmg(SNEAK_DMG)
         assert False
 
@@ -161,9 +162,11 @@ def run_round(state, strat):
 
 def eval_strat(strat, iters=ITER_COUNT):
     state, dmg = MT, 0
+    if VERBOSE: print 'START:', state, dmg
     for i in range(iters):
         state, dmginc = run_round(state, strat)
         dmg += dmginc
+        if VERBOSE: print 'STEP', i, ':', state, dmg
     return float(dmg) / iters
 
 print 'Standard dmg/action:', eval_strat(ATK_STRAT)
