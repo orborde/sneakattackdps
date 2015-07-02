@@ -66,7 +66,7 @@ SNEAK_DMG = lambda: BOLT_DMG() + d6() + d6()
 CRIT_MIN = 19
 CRIT_MUL = 2
 
-ITER_COUNT = 10000
+ITER_COUNT = 1000000
 
 def hit_dps():
     bd = 0
