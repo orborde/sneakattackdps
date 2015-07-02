@@ -74,14 +74,15 @@ def hit_dps():
     for i in range(ITER_COUNT):
         bd += BOLT_DMG()
         sd += SNEAK_DMG()
-    print 'BOLT dmg/hit:', float(bd) / ITER_COUNT, '(exp 5.5)'
-    print 'SNEAK dmg/hit:', float(sd) / ITER_COUNT, '(exp 12.5)'
-hit_dps()
+    return float(bd) / ITER_COUNT, float(sd) / ITER_COUNT
+Da, Dsa = hit_dps()
+print 'BOLT dmg/hit (Da):', Da, '(exp 5.5)'
+print 'SNEAK dmg/hit (Dsa):', Dsa, '(exp 12.5)'
 
 MISS = "MISS"
 HIT = "HIT"
 CRIT = "CRIT"
-def attack_roll():
+def attack_roll(VERBOSE=VERBOSE):
     roll = d20()
     if roll >= CRIT_MIN:
         if VERBOSE: print 'CRITICAL on', roll
@@ -97,8 +98,18 @@ def attack_roll():
     return MISS
 
 
-def attack_roll_dmg(damage_func):
-    outcome = attack_roll()
+def ph():
+    hits = 0
+    for i in range(ITER_COUNT):
+        res = attack_roll(VERBOSE=False)
+        if res is HIT or res is CRIT:
+            hits += 1
+    return float(hits) / ITER_COUNT
+print 'Ph ~=', ph()
+
+
+def attack_roll_dmg(damage_func, VERBOSE=VERBOSE):
+    outcome = attack_roll(VERBOSE=VERBOSE)
     if outcome is HIT:
         dmg = damage_func()
         if VERBOSE: print dmg, 'damage'
@@ -109,6 +120,15 @@ def attack_roll_dmg(damage_func):
         return dmg
     assert outcome is MISS
     return 0
+
+
+print 'D(LH) / Dsa ~=',
+print (float(sum(
+    attack_roll_dmg(SNEAK_DMG, VERBOSE=False) for i in range(ITER_COUNT)))
+       /
+       ITER_COUNT
+       /
+       Dsa)
 
 
 def run_round(state, strat):
