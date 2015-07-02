@@ -169,6 +169,8 @@ def eval_strat(strat, iters=ITER_COUNT):
         if VERBOSE: print 'STEP', i, ':', state, dmg
     return float(dmg) / iters
 
-print 'Standard dmg/action:', eval_strat(ATK_STRAT)
-print 'Sneak attack dmg/action:', eval_strat(SNEAK_STRAT)
+atk_dmg = eval_strat(ATK_STRAT)
+print 'Standard dmg/action:', atk_dmg
+sneak_dmg = eval_strat(SNEAK_STRAT)
+print 'Sneak attack dmg/action:', sneak_dmg
 
