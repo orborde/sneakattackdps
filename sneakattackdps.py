@@ -71,7 +71,7 @@ ITER_COUNT = 1000000
 def hit_dps():
     bd = 0
     sd = 0
-    for i in range(ITER_COUNT):
+    for i in xrange(ITER_COUNT):
         bd += BOLT_DMG()
         sd += SNEAK_DMG()
     return float(bd) / ITER_COUNT, float(sd) / ITER_COUNT
@@ -100,7 +100,7 @@ def attack_roll(VERBOSE=VERBOSE):
 
 def ph():
     hits = 0
-    for i in range(ITER_COUNT):
+    for i in xrange(ITER_COUNT):
         res = attack_roll(VERBOSE=False)
         if res is HIT or res is CRIT:
             hits += 1
@@ -124,7 +124,7 @@ def attack_roll_dmg(damage_func, VERBOSE=VERBOSE):
 
 print 'D(LH) / Dsa ~=',
 print (float(sum(
-    attack_roll_dmg(SNEAK_DMG, VERBOSE=False) for i in range(ITER_COUNT)))
+    attack_roll_dmg(SNEAK_DMG, VERBOSE=False) for i in xrange(ITER_COUNT)))
        /
        ITER_COUNT
        /
@@ -163,7 +163,7 @@ def run_round(state, strat):
 def eval_strat(strat, iters=ITER_COUNT):
     state, dmg = MT, 0
     if VERBOSE: print 'START:', state, dmg
-    for i in range(iters):
+    for i in xrange(iters):
         state, dmginc = run_round(state, strat)
         dmg += dmginc
         if VERBOSE: print 'STEP', i, ':', state, dmg
