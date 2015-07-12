@@ -1,0 +1,13 @@
+$ time pypy sneakattackdps.py
+100000000000
+BOLT dmg/hit (Da): 5.50000473865 (exp 5.5)
+SNEAK dmg/hit (Dsa): 12.5000087056 (exp 12.5)
+Ph ~= 0.59999740356
+D(LH) / Dsa ~= 0.699998862245
+Standard dmg/action: 1.92499716486 (exp 1.925/action)
+Sneak attack dmg/action: 2.18748632748 (exp 2.1875/action)
+
+real	1383m39.857s
+user	755m22.022s
+sys	0m3.802s
+
